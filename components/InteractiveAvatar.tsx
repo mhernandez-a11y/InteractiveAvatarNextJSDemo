@@ -24,7 +24,7 @@ import { AVATARS } from "@/app/lib/constants";
 
 const DEFAULT_CONFIG: StartAvatarRequest = {
   quality: AvatarQuality.Low,
-  avatarName: AVATARS[0].avatar_id,
+  avatarName: "Graham_Chair_Sitting_public",
   knowledgeId: undefined,
   voice: {
     rate: 1.5,
