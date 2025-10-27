@@ -5,16 +5,27 @@ export async function POST() {
     if (!HEYGEN_API_KEY) {
       throw new Error("API key is missing from .env");
     }
-    const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_URL;
 
-    const res = await fetch(`${baseApiUrl}/v1/streaming.create_token`, {
+    const baseApiUrl = process.env.NEXT_PUBLIC_BASE_API_URL || "https://api.heygen.com";
+
+    // 🔧 Personaliza aquí con tu avatar y Knowledge Base
+    const requestBody = {
+      avatar_id: "Graham_Chair_Sitting_public", // o tu avatar real
+      knowledge_base_names: ["Volaris CEO"],    // importante: nombre exacto
+    };
+
+    const res = await fetch(`${baseApiUrl}/v1/streaming-avatar/token`, {
       method: "POST",
       headers: {
         "x-api-key": HEYGEN_API_KEY,
+        "Content-Type": "application/json",
       },
+      body: JSON.stringify(requestBody),
     });
 
-    console.log("Response:", res);
+    if (!res.ok) {
+      throw new Error(`HeyGen API error: ${res.statusText}`);
+    }
 
     const data = await res.json();
 
